@@ -1,0 +1,14 @@
+body {
+}
+
+#block {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  line-height: 100px;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FocusTime Popup</title>
+	<style>
+		body {
+			min-width: 200px;
+		}
+	</style>
+</head>
+<body>
+		<h1>work intervals:</h1>
+	<div>
+	    <input type="radio" name="work" value="15" checked>15 min<br>
+	    <input type="radio" name="work" value="20">20 min<br>
+	    <input type="radio" name="work" value="25">25 min<br>
+	    <input type="radio" name="work" value="30">30 min<br>	    
+	</div>
+	
+	<div>
+		<h1>break intervals:</h1>
+	    <input type="radio" name="break" value="5" checked>5 min<br>
+	    <input type="radio" name="break" value="10">10 min<br>
+	    <input type="radio" name="break" value="15">15 min<br>
+	</div>
+	
+	<div>
+	  	<button id="startTimer">Start</button>
+	  	<button id="stopTimer">Stop</button>	  	
+	</div>
+	<div id="timerType"></div>
+	<div id="countdown"></div>
+	<div id="targetTime"></div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

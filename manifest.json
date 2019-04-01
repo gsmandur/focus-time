@@ -1,0 +1,18 @@
+{
+	"name": "Focus Time",
+	"version": "1.0",
+	"description": "A Pomodoro timer to focus on your work and block out distracting websites!",
+	"permissions": ["alarms", "storage", "tabs", "<all_urls>"],
+
+	"background": {
+		"scripts": ["background.js", "websiteBlocker.js"],
+		"persistent": false
+	},
+	"browser_action": {
+		// need to add icons
+		"default_title": "Time to Stop Procrastinating",
+		"default_popup": "popup.html"
+	},
+	"options_page": "options.html",
+	"manifest_version": 2
+}
