@@ -101,8 +101,15 @@ function stopTimer() {
 
 	timer = null;
 	timerSet = false;
-	chrome.storage.local.clear();
 	chrome.alarms.clearAll();
+	//chrome.storage.local.clear();
+	chrome.storage.local.remove([
+		"workTime", 
+		"breakTime",
+	 	"target", 
+	 	"timerType", 
+	 	"timerSet"
+ 	]);
 }
 
 var timer = null;
