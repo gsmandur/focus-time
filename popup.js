@@ -83,7 +83,7 @@ function stopTimer() {
 	timer = null;
 	timerSet = false;
 	chrome.storage.local.clear();
-
+	chrome.alarms.clearAll();
 }
 
 var timer = null;
