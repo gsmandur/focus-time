@@ -58,25 +58,47 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 
 
 
+// listen for storage changes for when a new alarm is set
+chrome.storage.onChanged.addListener(function(changes, area) {
+    // timer type changed (if val not changed it will be undefined)
+    if (changes.timerType) {
+	    console.log(changes.timerType);
+    	var type = changes.timerType.newValue;
+
+    	// block or unblock current tab
+		  chrome.tabs.query({ currentWindow: true, active: true },function (tabArray) { 
+				// work timer set,
+				if (type === 'work') {
+					blockSite(tabArray[0].id);
+				}
+				// break timer
+				else {
+					unblockSite();
+				}			
+		  });    	
+    }
+  });
+
 /*
 // current alarm finishes
 chrome.alarms.onAlarm.addListener(function(alarm) {
 		// worktimer finishes, refresh page to remove block
-		chrome.tabs.getCurrent(function(tab) {
-			chrome.tabs.reload();
+	  chrome.tabs.query({ currentWindow: true, active: true },function (tabArray) { 
+	  	//handleSite(tabArray[0].id);			
+			//chrome.tabs.reload();
+
+			// work finishes, unblock site
+			if (alarm.name === 'workTimer') {
+				unblockSite();
+			}
+			// break finishes, apply block
+			else {
+				blockSite(tabArray[0].id);
+			}			
 	  });
 
-		//window.location.reload(true); 
-		if (alarm.name === 'workTimer') {
-
-			//window.location.reload(false); 
-		}
-		// break finishes, apply block
-		else {
-			//blockSit
-		}
+	
 
 });
 */
-
 // need to store blocked website urls - use a set? that we save in chrome.storage
