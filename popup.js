@@ -41,6 +41,7 @@ function save_options(workTime, breakTime, target) {
     'workTime': workTime,
     'breakTime': breakTime,
     'target': target,
+    'timerType': 'work',
     'timerSet': true
   }, function() {
     // Update status to let user know options were saved.
