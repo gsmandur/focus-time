@@ -1,15 +1,8 @@
 function displayTimer(target) {
 	// display the type of timer (work or break)
-	chrome.alarms.getAll(function(alarmsArr) {
-		alarm = alarmsArr[0]; // should only be one alarm in use
-		// when starting, alarm does not start quick enough, so default to work timer type
-		if (alarm && alarm.name === 'breakTimer') {
-			document.getElementById("timerType").innerHTML = 'Break!'
-		}
-		else {
-			document.getElementById("timerType").innerHTML = 'Work!'
-		}
-	});
+  chrome.storage.local.get(['timerType'], function(item) {
+			document.getElementById("timerType").innerHTML = item.timerType;
+  });	
 
 	// display the countdown 
  	timer = setInterval(function(){
