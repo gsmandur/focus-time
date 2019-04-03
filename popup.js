@@ -48,7 +48,10 @@ function restore_options() {
   chrome.storage.local.get(['timerSet', 'target'], function(items) { 	// null gives us all keys
 		if (items.timerSet) {
 			document.getElementById('targetTime').innerHTML = items.target;
-			if (items.timerSet === true) { displayTimer(items.target); }
+			if (items.timerSet === true) {
+				timerSet = true;
+				displayTimer(items.target);
+			}
   	}
   });
 }
