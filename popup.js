@@ -26,6 +26,17 @@ function displayTimer(target) {
 	}, 500); // 0.5 second refersh rate 
 }
 
+// used to add a start/stop button to the html
+function addButton(id, text) {
+	var div = document.getElementById('buttons');
+  button = document.createElement('button');
+  button.id = id;
+  button.innerHTML = text;
+	if (id === "startButton") { button.addEventListener("click", setUpTimer); }
+	else  { button.addEventListener("click", stopTimer); }
+
+  div.appendChild(button);
+}
 
 // Saves options to chrome.storage
 function save_options(workTime, breakTime, target) {
@@ -42,16 +53,17 @@ function save_options(workTime, breakTime, target) {
   });
 }
 
-// restore options stored in chrome.storage to the popup
-// specifically the displayed timer
+// restore options stored in chrome.storage to the popup on load
 function restore_options() {
   chrome.storage.local.get(['timerSet', 'target'], function(items) { 	// null gives us all keys
 		if (items.timerSet) {
 			document.getElementById('targetTime').innerHTML = items.target;
-			if (items.timerSet === true) {
-				timerSet = true;
-				displayTimer(items.target);
-			}
+			timerSet = true;
+			displayTimer(items.target);
+			addButton("stopButton", "Stop");
+  	}
+  	else {
+			addButton("startButton", "Start");
   	}
   });
 }
@@ -70,15 +82,22 @@ function setUpTimer() {
   // relative to this date (in seconds)
   var target = new Date(now + workTime * 1000).getTime();
 
+  // remove start and add stop buttons
+	document.getElementById("startButton").remove();
+	addButton("stopButton", "Stop");
+
   save_options(workTime, breakTime, target);
   displayTimer(target);
 }
-
 
 function stopTimer() {
 	clearInterval(timer);
 	document.getElementById("countdown").innerHTML = "Finished";
 	document.getElementById("timerType").innerHTML = "";
+
+  // remove stop and add start buttons
+	document.getElementById("stopButton").remove();
+	addButton("startButton", "Start");
 
 	timer = null;
 	timerSet = false;
@@ -88,8 +107,9 @@ function stopTimer() {
 
 var timer = null;
 var timerSet = false;
-document.getElementById("startTimer").addEventListener("click", setUpTimer);
-document.getElementById("stopTimer").addEventListener("click", stopTimer);
+//document.getElementById("startButton").addEventListener("click", setUpTimer);
+//document.getElementById("stopButton").addEventListener("click", stopTimer);
+
 // on page load
 document.addEventListener('DOMContentLoaded', restore_options);
 
