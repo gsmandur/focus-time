@@ -8,14 +8,14 @@ function userStopTimer() {
 
 
 
-// changes is an object with values that have changed
+// listen for storage changes (specifically if users starts timer from popup) 
 // if val not changed it will be undefined
 chrome.storage.onChanged.addListener(function(changes, area) {
 	  console.log("Change in storage area: " + area);
 
     var changedItems = Object.keys(changes);
-    console.log(changedItems);
-    console.log(changes.timerSet);
+	//  console.log(changedItems);
+  //  console.log(changes.timerSet);
 
     // user started timer
     if (changes.timerSet && changes.timerSet.newValue == true) {
@@ -44,15 +44,18 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 		console.log(item.timerSet);
 		// only start next alarm if timer is still set
   	if (item.timerSet === true) {
-		// change alarm to break timer
+			// change alarm to break timer
 			if (alarm.name === 'workTimer') {
 			  chrome.storage.local.get(['breakTime'], function(item) {
 				  var now = new Date().getTime();
 					var target = new Date(now + item.breakTime * 1000).getTime();
 				  // create alarm
 					chrome.alarms.create("breakTimer", {'when': target});			
-					// set the new target
-				  chrome.storage.local.set({'target': target});
+					// update the new target and timer type
+				  chrome.storage.local.set({
+				  	'target': target,
+				  	'timerType': 'break'
+				  });
 			  
 			  });
 			}
@@ -64,8 +67,11 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 					var target = new Date(now + item.workTime * 1000).getTime();
 				  // create alarm
 					chrome.alarms.create("workTimer", {'when': target});			
-					// set the new target
-				  chrome.storage.local.set({'target': target});
+					// update the new target and type
+				  chrome.storage.local.set({
+				  	'target': target,
+    				'timerType': 'work'
+				  });
 			  });
 			}
 
