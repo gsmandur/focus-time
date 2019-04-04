@@ -3,21 +3,21 @@
 <head><title>My Test Extension Options</title></head>
 <body>
 
-Favorite color:
-<select id="color">
- <option value="red">red</option>
- <option value="green">green</option>
- <option value="blue">blue</option>
- <option value="yellow">yellow</option>
-</select>
+<input type="text" placeholder="some text" class="search" onkeypress="search(this)"/>  
 
-<label>
-  <input type="checkbox" id="like">
-  I like colors.
-</label>
+<div>
+	<label for="url">Enter a URL to BlackList:</label>
+	<input type="text" id="url" name="url" size="50">
+</div>
 
-<div id="status"></div>
-<button id="save">Save</button>
+<div id="blackList">
+	<h1>BlackList</h1>
+  	<ul>
+  		<li>facebook.com</li>
+     	<li>youtube.com</li>
+     	<li>instagram.com</li>
+  	</ul>
+</div>
 
 <script src="options.js"></script>
 </body>
