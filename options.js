@@ -1,3 +1,54 @@
+
+function blackListSite(url) {
+  if (url === '') return;
+
+
+  // get the blacklist from storage
+  chrome.storage.local.get({
+    blackList: [] // set if not defined
+  }, function(item) {
+
+    // add url to BL
+    let arr = item.blackList; 
+    if (!arr.includes(url)) { // make sure url is not already there
+      arr.push(url);
+      console.log(arr);
+    }
+    
+    // update storage
+    chrome.storage.local.set({
+      blackList: arr  
+    });
+
+  });
+
+
+}
+
+let urlTextArea = document.getElementById("url");
+
+
+// users presses enter on text box
+urlTextArea.addEventListener("keyup", function(event) {
+  if (event.key === "Enter") {
+    url = urlTextArea.value;
+    console.log(url);
+    urlTextArea.value = '';
+
+    // add to blacklisted websites
+    if (url !== '') {
+      blackListSite(url);
+
+
+    }
+    return false;
+  }
+});
+
+
+
+
+
 // Saves options to chrome.storage
 function save_options() {
   var color = document.getElementById('color').value;
@@ -27,6 +78,7 @@ function restore_options() {
     document.getElementById('like').checked = items.likesColor;
   });
 }
+
 document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click',
-    save_options);
+document.getElementById('save').addEventListener('click',save_options);
+
