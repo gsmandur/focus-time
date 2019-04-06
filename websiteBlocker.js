@@ -3,8 +3,17 @@
 // handle new window, google search of new website (ie url changes)
 
 
-function unblockSite() {
-	chrome.tabs.executeScript(null, {file: 'unblock.js'});
+function unblockSite(tabId) {
+	// get tab url
+	chrome.tabs.get(tabId, function(tab) {
+	  var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
+	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") === 0 ? true : false;
+
+	  // execute script on non chrome urls
+		if (!isChromeUrl && !isChromeExtUrl) {
+			chrome.tabs.executeScript(null, {file: 'unblock.js'});
+		}
+	});
 }
 
 function blockSite(tabId) {
@@ -19,9 +28,12 @@ function blockSite(tabId) {
 	  var isBlackListed = tab.url.includes(testUrl);
 
 	  // execute script does not work with chrome urls (and does not need to)
-	  //var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
+	  var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
+	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") === 0 ? true : false;
+
 	  
-	  if (true) {
+	  // execute script on non chrome urls
+		if (!isChromeUrl && !isChromeExtUrl) {
 			chrome.tabs.executeScript(null, {file: 'block.js'});
 			chrome.tabs.insertCSS(null, {file: 'block.css'});
 		}
@@ -35,7 +47,7 @@ function handleSite(tabId) {
 	chrome.alarms.getAll(function(alarms) {
 		// unblock site if no alarm set or on break 
 		if (alarms.length === 0 || alarms[0].name === 'breakTimer') {
-			unblockSite();
+			unblockSite(tabId);
 		}	
     else {
 			blockSite(tabId);
