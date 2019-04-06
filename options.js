@@ -50,7 +50,8 @@ function addSiteToDisplay(url) {
 
 }
 
-function blackListSite(url) {
+// callback is optional, used to add multiple sites at once in sync
+function blackListSite(url, callback) {
   if (url === '') return;
 
   // get the blacklist from storage
@@ -63,16 +64,17 @@ function blackListSite(url) {
     if (!arr.includes(url)) { 
       arr.push(url);
       console.log(arr);
-      
+
       // update storage
       chrome.storage.local.set({
         blackList: arr  
       }, function() {
         addSiteToDisplay(url);
+
+        if(callback) callback();
       });
     }
     
-
   });
 
 
@@ -114,21 +116,35 @@ function save_options() {
   });
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
+// restore blacklisted sites stored in chrome.storage.
 function restore_options() {
-  // Use default value color = 'red' and likesColor = true.
+  // get elements from blacklist
+  // get the blacklist from storage
   chrome.storage.local.get({
-    favoriteColor: 'red',
-    likesColor: true
-  }, function(items) {
-    document.getElementById('color').value = items.favoriteColor;
-    document.getElementById('like').checked = items.likesColor;
+    blackList: [] // set if not defined
+  }, function(item) {
+    for (let i = 0; i < item.blackList.length; i++) {
+      addSiteToDisplay(item.blackList[i]);
+    }
   });
 }
 
+// add a few initial blacklisted sites to give the
+// user an idea of how it works
+function first_start() {
+  // add sites 1 by 1 in sync
+  blackListSite("facebook.com", function() {
+    blackListSite("youtube.com", function() {
+      blackListSite("instagram.com");
+    });
+  });
+}
+
+
+
 document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click',save_options);
+chrome.runtime.onInstalled.addListener(first_start);
+
 
 
 //chrome.storage.local.clear();
