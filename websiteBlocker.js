@@ -59,7 +59,9 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 // whn user switches windows
 chrome.windows.onFocusChanged.addListener(function(windowId) {
   chrome.tabs.query({currentWindow: true, active: true },function (tabArray) { 
-  	handleSite(tabArray[0].id);	
+  	if (typeof tabArray[0] !== 'undefined') {
+  		handleSite(tabArray[0].id);
+  	}
   });    	
 });
 
