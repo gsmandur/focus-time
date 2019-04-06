@@ -3,55 +3,46 @@
 // handle new window, google search of new website (ie url changes)
 
 
-function unblockSite(tabId) {
-	// get tab url
-	chrome.tabs.get(tabId, function(tab) {
-	  var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
-	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") === 0 ? true : false;
-
-	  // execute script on non chrome urls
-		if (!isChromeUrl && !isChromeExtUrl) {
-			chrome.tabs.executeScript(null, {file: 'unblock.js'});
-		}
-	});
+function unblockSite() {
+	chrome.tabs.executeScript(null, {file: 'unblock.js'});
 }
 
 function blockSite(tabId) {
 	// get tab url
 	chrome.tabs.get(tabId, function(tab) {
 	  console.log(tab.url);
-	  // block the page here
-	  var testUrl = "youtube.com";
 	  
 	  // TODO   
 	  // Check if url is on blacklist
 	  var isBlackListed = tab.url.includes(testUrl);
-
-	  // execute script does not work with chrome urls (and does not need to)
-	  var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
-	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") === 0 ? true : false;
-
 	  
 	  // execute script on non chrome urls
-		if (!isChromeUrl && !isChromeExtUrl) {
 			chrome.tabs.executeScript(null, {file: 'block.js'});
 			chrome.tabs.insertCSS(null, {file: 'block.css'});
-		}
 
 	});
 }
 
 //blocks or unblocks the current website
 function handleSite(tabId) {
-	// check if alarm is set
-	chrome.alarms.getAll(function(alarms) {
-		// unblock site if no alarm set or on break 
-		if (alarms.length === 0 || alarms[0].name === 'breakTimer') {
-			unblockSite(tabId);
-		}	
-    else {
-			blockSite(tabId);
-    }
+	// get tab url
+	chrome.tabs.get(tabId, function(tab) {
+	  var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
+	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") === 0 ? true : false;
+
+	  // execute script does not work with chrome urls (and does not need to)
+		if (!isChromeUrl && !isChromeExtUrl) {	
+			// check if alarm is set
+			chrome.alarms.getAll(function(alarms) {
+				// unblock site if no alarm set or on break 
+				if (alarms.length === 0 || alarms[0].name === 'breakTimer') {
+					unblockSite();
+				}	
+		    else {
+					blockSite(tabId);
+		    }
+			});
+		}
 	});
 }
 
@@ -89,8 +80,9 @@ chrome.storage.onChanged.addListener(function(changes, area) {
 
     	// block or unblock current tab
 		  chrome.tabs.query({ currentWindow: true, active: true },function (tabArray) { 
-  			// current tab is a chrome tab
-  			if (typeof tabArray[0] !== 'undefined') {
+  			if (typeof tabArray[0] !== 'undefined') {  // current tab is a chrome tab
+  				handleSite(tabArray[0].id);
+  				/*
 					// work timer set,
 					if (type === 'work') {
 						blockSite(tabArray[0].id);
@@ -98,7 +90,8 @@ chrome.storage.onChanged.addListener(function(changes, area) {
 					// break timer
 					else {
 						unblockSite(tabArray[0].id);
-					}			
+					}
+					*/			
 				}
 		  });    	
     }
