@@ -89,14 +89,17 @@ chrome.storage.onChanged.addListener(function(changes, area) {
 
     	// block or unblock current tab
 		  chrome.tabs.query({ currentWindow: true, active: true },function (tabArray) { 
-				// work timer set,
-				if (type === 'work') {
-					blockSite(tabArray[0].id);
+  			// current tab is a chrome tab
+  			if (typeof tabArray[0] !== 'undefined') {
+					// work timer set,
+					if (type === 'work') {
+						blockSite(tabArray[0].id);
+					}
+					// break timer
+					else {
+						unblockSite(tabArray[0].id);
+					}			
 				}
-				// break timer
-				else {
-					unblockSite();
-				}			
 		  });    	
     }
   });
