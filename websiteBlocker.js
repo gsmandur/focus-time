@@ -7,19 +7,25 @@ function unblockSite() {
 	chrome.tabs.executeScript(null, {file: 'unblock.js'});
 }
 
+
 function blockSite(tabId) {
 	// get tab url
 	chrome.tabs.get(tabId, function(tab) {
 	  console.log(tab.url);
-	  
-	  // TODO   
-	  // Check if url is on blacklist
-	  var isBlackListed = tab.url.includes(testUrl);
-	  
-	  // execute script on non chrome urls
-			chrome.tabs.executeScript(null, {file: 'block.js'});
-			chrome.tabs.insertCSS(null, {file: 'block.css'});
 
+		// check if url is blacklisted
+	  chrome.storage.local.get(['blackList'], function(item) {
+	    for (let i = 0; i < item.blackList.length; i++) {
+
+	    	// if url is substring of blacklisted site block site
+	     	if (tab.url.includes(item.blackList[i])) {
+					chrome.tabs.executeScript(null, {file: 'block.js'});
+					chrome.tabs.insertCSS(null, {file: 'block.css'});  
+					break;   	
+				}
+	    }
+  	});
+	
 	});
 }
 
