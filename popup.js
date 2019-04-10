@@ -61,9 +61,14 @@ function restore_options() {
 			timerSet = true;
 			displayTimer(items.target);
 			addButton("stopButton", "Stop");
+			// hide timer settings
+			document.getElementById("timerSettings").style.display = "none";
+
   	}
   	else {
 			addButton("startButton", "Start");
+			// show timer settings
+			document.getElementById("timerSettings").style.display = "block";			
   	}
   });
 }
@@ -85,6 +90,9 @@ function setUpTimer() {
   // remove start and add stop buttons
 	document.getElementById("startButton").remove();
 	addButton("stopButton", "Stop");
+	// hide timer settings
+	document.getElementById("timerSettings").style.display = "none";
+
 
   save_options(workTime, breakTime, target);
   displayTimer(target);
@@ -98,6 +106,9 @@ function stopTimer() {
   // remove stop and add start buttons
 	document.getElementById("stopButton").remove();
 	addButton("startButton", "Start");
+
+	// show timer settings
+	document.getElementById("timerSettings").style.display = "block";			
 
 	timer = null;
 	timerSet = false;
