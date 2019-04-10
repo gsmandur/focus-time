@@ -112,11 +112,24 @@ function stopTimer() {
  	]);
 }
 
+
+
+
 var timer = null;
 var timerSet = false;
 //document.getElementById("startButton").addEventListener("click", setUpTimer);
 //document.getElementById("stopButton").addEventListener("click", stopTimer);
 
+
+// go to options page
+document.getElementById("goToOptions").addEventListener("click", function() {
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  }
+});
+
 // on page load
 document.addEventListener('DOMContentLoaded', restore_options);
+
+
 
