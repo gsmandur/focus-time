@@ -52,3 +52,16 @@ input[type="radio"]:checked+label{
 .option-container input{
   display:none;
 }
+
+
+/* ------ options button --------- */
+
+#go-to-options {
+	height: 30px;
+
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 3px;
+}

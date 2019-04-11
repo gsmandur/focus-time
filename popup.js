@@ -133,7 +133,7 @@ var timerSet = false;
 
 
 // go to options page
-document.getElementById("goToOptions").addEventListener("click", function() {
+document.getElementById("go-to-options").addEventListener("click", function() {
   if (chrome.runtime.openOptionsPage) {
     chrome.runtime.openOptionsPage();
   }
