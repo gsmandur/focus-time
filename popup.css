@@ -10,7 +10,7 @@ body {
 }
 
 
-.work-container {
+.work-container, .break-container {
 	margin-bottom: 5px;
   	
   	text-align:center;
@@ -55,13 +55,39 @@ input[type="radio"]:checked+label{
 
 
 /* ------ options button --------- */
-
 #go-to-options {
 	height: 30px;
-
-
+	/* set in bottom right */
     position: fixed;
     bottom: 0;
     right: 0;
+
     margin: 3px;
+}
+
+
+/* ------- Start stop buttons --------- */
+
+button {
+  /* center button */
+  display: block;
+  margin: auto;
+  
+  color: white;
+  margin-top: 10px;
+  font-weight: bold;
+  border: none;
+  padding: 8px 20px; 
+}
+
+#startButton {
+  background-color: #2de000; /* Green */   
+  border-bottom:3px solid #24ba00;
+
+}
+
+#stopButton {
+  background-color: #e03000; /* Red */   
+  border-bottom:3px solid #aa2400;
+
 }
