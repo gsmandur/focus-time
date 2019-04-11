@@ -1,0 +1,54 @@
+h1 {
+	margin: 0px;
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+body {
+	min-width: 200px;
+	min-height: 200px;
+}
+
+
+.work-container {
+	margin-bottom: 5px;
+  	
+  	text-align:center;
+  	padding: 5px 5px;
+}
+
+.min {
+  font-weight:bold;
+}
+
+/* ---- radio bubble properties ------ */
+
+/*a label that immediately follows an input of type radio that is checked*/
+input[type="radio"]:checked+label{
+  color: red;
+} 
+
+.option-container label:hover {
+  background-color: #dddddd;
+}
+
+.option-container {
+  display: inline-block;
+  border-bottom:3px solid #dddddd;
+  background-color:#eeeeee;
+  text-align:center;
+}
+
+.option-container label{
+  display: inline-block;
+  margin:0px;
+  font-weight:bold;
+  color: #009999; /* blue-ish */
+  min-width: 20px;
+  padding:5px 10px;
+}
+
+/* remove radio bubble */
+.option-container input{
+  display:none;
+}

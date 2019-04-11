@@ -2,27 +2,46 @@
 <html>
 <head>
 	<title>FocusTime Popup</title>
-	<style>
-		body {
-			min-width: 200px;
-		}
-	</style>
+	<link rel="stylesheet" href="popup.css">
 </head>
 <body>
+	<div id="timerSettings">	
+
+		<div class="work-container">
+			<h1>Work Time</h1>
+			<div class="option-container">
+			    <input type="radio" name="work" id="work-1" value="15">
+			    <label for="work-1">15</label>
+			    
+			    <input type="radio" name="work" id="work-2" value="20" checked>
+			    <label for="work-2">20</label>
+			    
+			    <input type="radio" name="work"	id="work-3" value="25">
+			    <label for="work-3">25</label>
+			    
+			    <input type="radio" name="work" id="work-4" value="30"> 
+			    <label for="work-4">30</label>
+			</div>
+
+		</div>
+
+		<div class="work-container">
+			<h1>Break Time</h1>
+			<div class="option-container">		
+			    <input type="radio" name="break" id="break-1" value="5" checked>
+			    <label for="break-1">5</label>		    
+			    
+			    <input type="radio" name="break" id="break-2" value="10">
+			    <label for="break-2">10</label>		    
+
+			    <input type="radio" name="break" id="break-3" value="15">
+			    <label for="break-3">15</label>		    
+		    </div>
+
+		</div>
+	</div>
 	<button id="goToOptions">Go to options</button>
 
-	<div id="timerSettings">	
-		<h1>work intervals:</h1>
-	    <input type="radio" name="work" value="15" checked>15 min<br>
-	    <input type="radio" name="work" value="20">20 min<br>
-	    <input type="radio" name="work" value="25">25 min<br>
-	    <input type="radio" name="work" value="30">30 min<br>	    	
-
-		<h1>break intervals:</h1>
-	    <input type="radio" name="break" value="5" checked>5 min<br>
-	    <input type="radio" name="break" value="10">10 min<br>
-	    <input type="radio" name="break" value="15">15 min<br>
-	</div>
 	
 	<div id='buttons'>
 	  	<!--<button id="startButton">Start</button>-->
