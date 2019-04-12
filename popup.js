@@ -11,7 +11,7 @@ function displayTimer(target) {
  		var now = new Date();
   	var remaining = Math.round((target - now) / 1000);
 
-		//display the countdown 
+		//display the countdown  
   	let min = ~~(remaining/60); // round down
   	let sec = remaining % 60;
 
@@ -66,6 +66,7 @@ function restore_options() {
 			timerSet = true;
 		  document.getElementById("countdown").innerHTML = "00 : 00";
 			displayTimer(items.target);
+
 			addButton("stopButton", "Stop");
 			// hide timer settings
 			document.getElementById("timerSettings").style.display = "none";
