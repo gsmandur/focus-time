@@ -54,7 +54,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 					// update the new target and timer type
 				  chrome.storage.local.set({
 				  	'target': target,
-				  	'timerType': 'break'
+				  	'timerType': 'Break'
 				  });
 			  
 			  });
@@ -70,7 +70,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 					// update the new target and type
 				  chrome.storage.local.set({
 				  	'target': target,
-    				'timerType': 'work'
+    				'timerType': 'Work'
 				  });
 			  });
 			}

@@ -2,19 +2,28 @@ function displayTimer(target) {
 	// display the type of timer (work or break)
   chrome.storage.local.get(['timerType'], function(item) {
 			document.getElementById("timerType").innerHTML = item.timerType;
+			document.getElementById("countdown").style.display = "block"; // show it		
+
   });	
 
-	// display the countdown 
+	// start timer
  	timer = setInterval(function(){
  		var now = new Date();
   	var remaining = Math.round((target - now) / 1000);
-  	// ~~ turns string to 32bit integer
-	  document.getElementById("countdown").innerHTML = remaining + " seconds remaining";
+
+		//display the countdown 
+  	let min = ~~(remaining/60); // round down
+  	let sec = remaining % 60;
+
+  	// set the form to "00:00"
+  	let minStr = min < 10 ? "0" + min : min;
+  	let secStr = sec < 10 ? "0" + sec : sec;
+	  document.getElementById("countdown").innerHTML = minStr + " : " + secStr;
 	  
 	  remaining -= 1;
 	  if(remaining < 0){
 	  	clearInterval(timer);
-			document.getElementById("countdown").innerHTML = "Finished";
+			document.getElementById("countdown").innerHTML = "";
 			timer = null;
 
 			// get the next target time and display it
@@ -45,11 +54,8 @@ function save_options(workTime, breakTime, target) {
     'workTime': workTime,
     'breakTime': breakTime,
     'target': target,
-    'timerType': 'work',
+    'timerType': 'Work',
     'timerSet': true
-  }, function() {
-    // Update status to let user know options were saved.
-    document.getElementById('countdown').textContent = 'saved!';
   });
 }
 
@@ -57,8 +63,8 @@ function save_options(workTime, breakTime, target) {
 function restore_options() {
   chrome.storage.local.get(['timerSet', 'target'], function(items) { 	// null gives us all keys
 		if (items.timerSet) {
-			document.getElementById('targetTime').innerHTML = items.target;
 			timerSet = true;
+		  document.getElementById("countdown").innerHTML = "00 : 00";
 			displayTimer(items.target);
 			addButton("stopButton", "Stop");
 			// hide timer settings
@@ -68,7 +74,10 @@ function restore_options() {
   	else {
 			addButton("startButton", "Start");
 			// show timer settings
-			document.getElementById("timerSettings").style.display = "block";			
+			document.getElementById("timerSettings").style.display = "block";
+			// hide countdown
+			document.getElementById("countdown").style.display = "none"; 		
+
   	}
   });
 }
@@ -100,7 +109,8 @@ function setUpTimer() {
 
 function stopTimer() {
 	clearInterval(timer);
-	document.getElementById("countdown").innerHTML = "Finished";
+	document.getElementById("countdown").style.display = "none"; // block it		
+	document.getElementById("countdown").innerHTML = "";
 	document.getElementById("timerType").innerHTML = "";
 
   // remove stop and add start buttons
