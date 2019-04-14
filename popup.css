@@ -64,8 +64,15 @@ input[type="radio"]:checked+label{
     bottom: 0;
     right: 0;
     margin-right: 5px;
-    margin-bottom: 9px;
+    margin-bottom: 5px;
+    padding: 5px;
 }
+
+#go-to-options:hover {
+	border-radius: 20px;
+	background-color: #dddddd;
+}
+
 
 
 /* ------- Start / stop buttons --------- */
@@ -85,12 +92,20 @@ button {
 #startButton {
   background-color: #2de000; /* Green */   
   border-bottom:3px solid #24ba00;
-
 }
+
+#startButton:hover {
+  background-color: #29ce00; /* Green */   
+}
+
 
 #stopButton {
   background-color: #e03000; /* Red */   
   border-bottom:3px solid #aa2400;
+}
+
+#stopButton:hover {
+  background-color: #d32c00; /* Green */   
 }
 
 
