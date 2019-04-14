@@ -27,14 +27,22 @@ function addSiteToDisplay(url) {
 
   let list = document.getElementById('blackList');
   let li = document.createElement('li');
-  li.innerHTML = url;
+  //li.innerHTML = url;
+
+  //var text = document.createTextNode(url);
+  let text = document.createElement('div');
+  text.innerHTML = url;
+
+
 
   // 'X' for deleting site
   let del = document.createElement('div');
-  del.class = "deleteMe";
+  del.className = "delete";
   del.innerHTML = "X";
   
   li.appendChild(del);
+  li.appendChild(text);
+
   list.appendChild(li);
 
   // add on click listener so clicking the 'X' deletes removes the site

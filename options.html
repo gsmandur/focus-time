@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head><title>My Test Extension Options</title></head>
+<head>
+	<title>FocusTime Options</title>
+	<link rel="stylesheet" href="options.css">
+
+</head>
 <body>
 
-<input type="text" placeholder="some text" class="search" onkeypress="search(this)"/>  
-
 <div>
-	<label for="url">Enter a URL to BlackList:</label>
-	<input type="text" id="url" name="url" size="50">
+	<label for="url" style="font-weight: 500" >Enter a URL to BlackList:</label>
+	<input type="text" id="url" name="url" size="50" >
 </div>
 
 <div>
 	<h1>BlackList</h1>
   	<ul id="blackList">
+  		<!-- <li> <div class="delete">X</div> <div>facebook.com</div> </li> -->
   	</ul>
 </div>
 
