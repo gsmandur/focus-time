@@ -40,19 +40,19 @@ chrome.storage.onChanged.addListener(function(changes, area) {
 chrome.alarms.onAlarm.addListener(function(alarm) {
 	console.log("AlARM DONE");
   
-  chrome.storage.local.get(['timerSet'], function(item) {
+  chrome.storage.sync.get(['timerSet'], function(item) {
 		console.log(item.timerSet);
 		// only start next alarm if timer is still set
   	if (item.timerSet === true) {
 			// change alarm to break timer
 			if (alarm.name === 'workTimer') {
-			  chrome.storage.local.get(['breakTime'], function(item) {
+			  chrome.storage.sync.get(['breakTime'], function(item) {
 				  var now = new Date().getTime();
 					var target = new Date(now + item.breakTime * 1000).getTime();
 				  // create alarm
 					chrome.alarms.create("breakTimer", {'when': target});			
 					// update the new target and timer type
-				  chrome.storage.local.set({
+				  chrome.storage.sync.set({
 				  	'target': target,
 				  	'timerType': 'Break'
 				  });
@@ -62,13 +62,13 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 
 			// change alarm to work timer
 			else if (alarm.name === 'breakTimer') {
-			  chrome.storage.local.get(['workTime'], function(item) {
+			  chrome.storage.sync.get(['workTime'], function(item) {
 				  var now = new Date().getTime();
 					var target = new Date(now + item.workTime * 1000).getTime();
 				  // create alarm
 					chrome.alarms.create("workTimer", {'when': target});			
 					// update the new target and type
-				  chrome.storage.local.set({
+				  chrome.storage.sync.set({
 				  	'target': target,
     				'timerType': 'Work'
 				  });

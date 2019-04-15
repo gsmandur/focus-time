@@ -14,7 +14,7 @@ function blockSite(tabId) {
 	  console.log(tab.url);
 
 		// check if url is blacklisted
-	  chrome.storage.local.get(['blackList'], function(item) {
+	  chrome.storage.sync.get(['blackList'], function(item) {
 	    for (let i = 0; i < item.blackList.length; i++) {
 
 	    	// if url is substring of blacklisted site block site

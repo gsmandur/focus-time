@@ -1,6 +1,6 @@
 function displayTimer(target) {
 	// display the type of timer (work or break)
-  chrome.storage.local.get(['timerType'], function(item) {
+  chrome.storage.sync.get(['timerType'], function(item) {
 			document.getElementById("timerType").innerHTML = item.timerType;
 			document.getElementById("countdown").style.display = "block"; // show it		
 
@@ -27,7 +27,7 @@ function displayTimer(target) {
 			timer = null;
 
 			// get the next target time and display it
-		  chrome.storage.local.get(['target'], function(item) {
+		  chrome.storage.sync.get(['target'], function(item) {
 	  		console.log(item.target + " old target = " + target);
 	  		displayTimer(item.target);
 		  });
@@ -50,7 +50,7 @@ function addButton(id, text) {
 // Saves options to chrome.storage
 function save_options(workTime, breakTime, target) {
 
-  chrome.storage.local.set({
+  chrome.storage.sync.set({
     'workTime': workTime,
     'breakTime': breakTime,
     'target': target,
@@ -61,7 +61,7 @@ function save_options(workTime, breakTime, target) {
 
 // restore options stored in chrome.storage to the popup on load
 function restore_options() {
-  chrome.storage.local.get(['timerSet', 'target'], function(items) { 	// null gives us all keys
+  chrome.storage.sync.get(['timerSet', 'target'], function(items) { 	// null gives us all keys
 		if (items.timerSet) {
 			timerSet = true;
 		  document.getElementById("countdown").innerHTML = "00 : 00";
@@ -124,8 +124,8 @@ function stopTimer() {
 	timer = null;
 	timerSet = false;
 	chrome.alarms.clearAll();
-	//chrome.storage.local.clear();
-	chrome.storage.local.remove([
+	//chrome.storage.sync.clear();
+	chrome.storage.sync.remove([
 		"workTime", 
 		"breakTime",
 	 	"target", 

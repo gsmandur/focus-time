@@ -1,7 +1,7 @@
 // removes url from the blacklist array
 function whiteListSite(url) {
   // get the blacklist from storage
-  chrome.storage.local.get({
+  chrome.storage.sync.get({
     blackList: [] // set if not defined
   }, function(item) {
 
@@ -15,7 +15,7 @@ function whiteListSite(url) {
     console.log(newBL);
 
     // update storage
-    chrome.storage.local.set({
+    chrome.storage.sync.set({
       blackList: newBL  
     });
   
@@ -63,7 +63,7 @@ function blackListSite(url, callback) {
   if (url === '') return;
 
   // get the blacklist from storage
-  chrome.storage.local.get({
+  chrome.storage.sync.get({
     blackList: [] // set if not defined
   }, function(item) {
 
@@ -74,7 +74,7 @@ function blackListSite(url, callback) {
       console.log(arr);
 
       // update storage
-      chrome.storage.local.set({
+      chrome.storage.sync.set({
         blackList: arr  
       }, function() {
         addSiteToDisplay(url);
@@ -111,7 +111,7 @@ urlTextArea.addEventListener("keyup", function(event) {
 function save_options() {
   var color = document.getElementById('color').value;
   var likesColor = document.getElementById('like').checked;
-  chrome.storage.local.set({
+  chrome.storage.sync.set({
     favoriteColor: color,
     likesColor: likesColor
   }, function() {
@@ -128,7 +128,7 @@ function save_options() {
 function restore_options() {
   // get elements from blacklist
   // get the blacklist from storage
-  chrome.storage.local.get({
+  chrome.storage.sync.get({
     blackList: [] // set if not defined
   }, function(item) {
     for (let i = 0; i < item.blackList.length; i++) {
@@ -155,6 +155,6 @@ chrome.runtime.onInstalled.addListener(first_start);
 
 
 
-//chrome.storage.local.clear();
+//chrome.storage.sync.clear();
 
 
