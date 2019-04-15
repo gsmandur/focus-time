@@ -2,7 +2,7 @@
 	"name": "Focus Time",
 	"version": "1.0",
 	"description": "A Pomodoro timer to focus on your work and block out distracting websites!",
-	"permissions": ["alarms", "storage", "tabs", "<all_urls>"],
+	"permissions": ["alarms", "storage", "tabs", "notifications", "<all_urls>"],
 
 	"background": {
 		"scripts": ["background.js", "websiteBlocker.js"],

@@ -56,7 +56,15 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 				  	'target': target,
 				  	'timerType': 'Break'
 				  });
-			  
+
+				  // notify user work timer has finished
+					chrome.notifications.create({
+					  type: "basic",
+					  title: "Work Timer Finished!",
+					  message: "Time to take a break.",
+					  iconUrl: "setting-icon.png",
+					});
+
 			  });
 			}
 
@@ -72,6 +80,15 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 				  	'target': target,
     				'timerType': 'Work'
 				  });
+
+				  // notify user break timer finished
+					chrome.notifications.create({
+					  type: "basic",
+					  title: "Break Finished!",
+					  message: "Time to get back to work.",
+					  iconUrl: "setting-icon.png",
+					});
+
 			  });
 			}
 
