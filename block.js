@@ -5,8 +5,15 @@
 if (!document.getElementById("block")) {
 	var div = document.createElement("div");
 	div.id = 'block';
-	div.innerHTML = "This Page is Blocked! Get back to work, you can do it!";
+	// div.innerHTML = "This Page is Blocked! Get back to work, you can do it!";
+	div.innerHTML = "you: I want to block this site to focus. also you: nvm";
 	document.body.appendChild(div);
+
+	var footer = document.createElement("div");
+	footer.id = 'footer';
+	footer.innerHTML = "Refresh page if still stuck on this screen";
+	document.body.appendChild(footer);
+
 }
 
 
