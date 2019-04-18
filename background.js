@@ -62,7 +62,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 					  type: "basic",
 					  title: "Work Timer Finished!",
 					  message: "Time to take a break.",
-					  iconUrl: "setting-icon.png",
+					  iconUrl: "icon-v3.png",
 					});
 
 			  });
@@ -86,7 +86,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 					  type: "basic",
 					  title: "Break Finished!",
 					  message: "Time to get back to work.",
-					  iconUrl: "setting-icon.png",
+					  iconUrl: "icon-v3.png",
 					});
 
 			  });
