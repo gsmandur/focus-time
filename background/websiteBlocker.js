@@ -18,9 +18,10 @@ function blockSite(tabId) {
 	     	if (tab.url.includes(item.blackList[i])) {
 					chrome.tabs.executeScript(null, {file: 'background/block.js'});
 					chrome.tabs.insertCSS(null, {file: 'background/block.css'});  
-					break;   	
+					return;   	
 				}
 	    }
+	    unblockSite();
   	});
 	
 	});
