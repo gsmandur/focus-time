@@ -15,9 +15,10 @@ if (!document.getElementById("block")) {
 	div.innerHTML = blockMessages[Math.floor(Math.random() * Math.floor(blockMessages.length))];
 	document.body.appendChild(div);
 
+	/*
 	var footer = document.createElement("div");
 	footer.id = 'footer';
 	footer.innerHTML = "Refresh page if still stuck on this screen";
 	document.body.appendChild(footer);
-
+	*/
 }
