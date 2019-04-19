@@ -1,5 +1,4 @@
-//document.body.innerHTML = '<div id="block">This Page is Blocked! Get back to work, you can do it!</div>';
-
+// script blocks the current website
 
 // if page is not already blocked
 if (!document.getElementById("block")) {
@@ -8,7 +7,7 @@ if (!document.getElementById("block")) {
 	// div.innerHTML = 
 	let blockMessages = [
 		"This Page is Blocked! Get back to work, you can do it!",
-		"Think about how far you've gotten, dont't give in now!",
+		"Think about how far you've gotten, don't give in now!",
 		"Fancy meeting you here. Please just wait a little longer!",
 		"you: I want to block this site to focus. also you: nvm"
 	]
@@ -22,20 +21,3 @@ if (!document.getElementById("block")) {
 	document.body.appendChild(footer);
 
 }
-
-
-
-//var textnode = document.createTextNode("Water"); 
-//document.getElementById('body').appendChild(div);
-
-
-//document.body.prepend(div);
-
-
-/*
-document.open('text/html');
-//document.write('<!DOCTYPE HTML><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>HAI</title></head><body><h1>OMG HAI2U!!!1</h1></body></html>');
-document.write('<div id="block">This Page is Blocked! Get back to work, you can do it!</div>');
-document.close();
-
-*/

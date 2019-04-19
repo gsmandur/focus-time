@@ -1,47 +1,26 @@
 // handles the alarm creation and deletion
 
-// user clicked stop timer button
-function userStopTimer() {
-	stopTimer();
-	timerLoop = false;
-}
-
-
 
 // listen for storage changes (specifically if users starts timer from popup) 
-// if val not changed it will be undefined
 chrome.storage.onChanged.addListener(function(changes, area) {
-	  console.log("Change in storage area: " + area);
-
+		// if a value is not not changed it will be undefined
     var changedItems = Object.keys(changes);
-	//  console.log(changedItems);
-  //  console.log(changes.timerSet);
 
     // user started timer
-    if (changes.timerSet && changes.timerSet.newValue == true) {
-	    console.log('can start timer!!!!!!!!!!!!');
+    if (changes.timerSet && changes.timerSet.newValue === true) {
 	    // create alarm - start with work timer
 	    chrome.alarms.create("workTimer", {
 	    	'when': changes.target.newValue
 	    })
-
     }
 
-    /*
-    for (var item of changedItems) {
-	    console.log(item + " has changed:");
-	    console.log("Old value: " + changes[item].oldValue);
-	    console.log("New value: " + changes[item].newValue);
-	  }
-		*/
 });
 
-// current alarm finishes
+// current alarm finishes -> change alarm and create desktop notification
 chrome.alarms.onAlarm.addListener(function(alarm) {
 	console.log("AlARM DONE");
   
   chrome.storage.sync.get(['timerSet'], function(item) {
-		console.log(item.timerSet);
 		// only start next alarm if timer is still set
   	if (item.timerSet === true) {
 			// change alarm to break timer
@@ -91,13 +70,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 
 			  });
 			}
-
-			else {
-				alert('alarm name error in background.js!');
-			}
   	}
+  	
   });
-
 
 })
 

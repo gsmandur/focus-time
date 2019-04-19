@@ -1,3 +1,5 @@
+// handles the logic behind the timer and displaying it in the popup 
+
 function displayTimer(target) {
 	// display the type of timer (work or break)
   chrome.storage.sync.get(['timerType'], function(item) {
@@ -35,7 +37,7 @@ function displayTimer(target) {
 	}, 500); // 0.5 second refersh rate 
 }
 
-// used to add a start/stop button to the html
+// used to add a start/stop button to the html (only 1 exists at a time)
 function addButton(id, text) {
 	var div = document.getElementById('buttons');
   button = document.createElement('button');
@@ -47,9 +49,59 @@ function addButton(id, text) {
   div.appendChild(button);
 }
 
+
+function setUpTimer() {
+	// timer already running
+	if (timerSet === true) { return; }
+	timerSet = true;
+
+	// get work time and break time in minutes
+ 	var workTime = document.querySelector('input[name="work"]:checked').value;
+ 	var breakTime = document.querySelector('input[name="break"]:checked').value;
+
+  var now = new Date().getTime();
+  // target timestamp; we will compute the remaining time
+  // relative to this date (in seconds)
+  var target = new Date(now + workTime * 1000).getTime();
+
+  // remove start and add stop buttons
+	document.getElementById("startButton").remove();
+	addButton("stopButton", "Stop");
+	// hide timer settings
+	document.getElementById("timerSettings").style.display = "none";
+
+  save_options(workTime, breakTime, target);
+  displayTimer(target);
+}
+
+function stopTimer() {
+	clearInterval(timer);
+	document.getElementById("countdown").style.display = "none"; // block it		
+	document.getElementById("countdown").innerHTML = "";
+	document.getElementById("timerType").innerHTML = "";
+
+  // remove stop and add start buttons
+	document.getElementById("stopButton").remove();
+	addButton("startButton", "Start");
+
+	// show timer settings
+	document.getElementById("timerSettings").style.display = "block";			
+
+	timer = null;
+	timerSet = false;
+	chrome.alarms.clearAll();
+	chrome.storage.sync.remove([
+		"workTime", 
+		"breakTime",
+	 	"target", 
+	 	"timerType", 
+	 	"timerSet"
+ 	]);
+}
+
+
 // Saves options to chrome.storage
 function save_options(workTime, breakTime, target) {
-
   chrome.storage.sync.set({
     'workTime': workTime,
     'breakTime': breakTime,
@@ -83,75 +135,19 @@ function restore_options() {
   });
 }
 
-function setUpTimer() {
-	// timer already running
-	if (timerSet === true) { return; }
-	timerSet = true;
-
-	// get work time and break time in minutes
- 	var workTime = document.querySelector('input[name="work"]:checked').value;
- 	var breakTime = document.querySelector('input[name="break"]:checked').value;
-
-  var now = new Date().getTime();
-  // target timestamp; we will compute the remaining time
-  // relative to this date (in seconds)
-  var target = new Date(now + workTime * 1000).getTime();
-
-  // remove start and add stop buttons
-	document.getElementById("startButton").remove();
-	addButton("stopButton", "Stop");
-	// hide timer settings
-	document.getElementById("timerSettings").style.display = "none";
-
-
-  save_options(workTime, breakTime, target);
-  displayTimer(target);
-}
-
-function stopTimer() {
-	clearInterval(timer);
-	document.getElementById("countdown").style.display = "none"; // block it		
-	document.getElementById("countdown").innerHTML = "";
-	document.getElementById("timerType").innerHTML = "";
-
-  // remove stop and add start buttons
-	document.getElementById("stopButton").remove();
-	addButton("startButton", "Start");
-
-	// show timer settings
-	document.getElementById("timerSettings").style.display = "block";			
-
-	timer = null;
-	timerSet = false;
-	chrome.alarms.clearAll();
-	//chrome.storage.sync.clear();
-	chrome.storage.sync.remove([
-		"workTime", 
-		"breakTime",
-	 	"target", 
-	 	"timerType", 
-	 	"timerSet"
- 	]);
-}
-
-
-
 
 var timer = null;
 var timerSet = false;
-//document.getElementById("startButton").addEventListener("click", setUpTimer);
-//document.getElementById("stopButton").addEventListener("click", stopTimer);
 
+// on page load
+document.addEventListener('DOMContentLoaded', restore_options);
 
-// go to options page
+// options page link
 document.getElementById("go-to-options").addEventListener("click", function() {
   if (chrome.runtime.openOptionsPage) {
     chrome.runtime.openOptionsPage();
   }
 });
-
-// on page load
-document.addEventListener('DOMContentLoaded', restore_options);
 
 
 

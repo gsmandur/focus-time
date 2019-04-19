@@ -1,7 +1,4 @@
-// User switches tabs
-// TODO 
-// handle new window, google search of new website (ie url changes)
-
+// Handle the blocking/unblocking of websites based on the blacklist 
 
 function unblockSite() {
 	chrome.tabs.executeScript(null, {file: 'unblock.js'});
@@ -49,23 +46,23 @@ function handleSite(tabId) {
 		    }
 			});
 		}
+
 	});
 }
 
+// Listen for tab changes: 
 
 // when tab is updated (opened or refreshed)
 chrome.tabs.onUpdated.addListener(function(tabId) {
 	handleSite(tabId);
-	//chrome.tabs.executeScript(null, {file: 'unblock.js'});
-
 });
 
-// when user switches tabs
+// user switches tabs
 chrome.tabs.onActivated.addListener(function(activeInfo) {
 	handleSite(activeInfo.tabId);
 });
 
-// whn user switches windows
+// user switches windows
 chrome.windows.onFocusChanged.addListener(function(windowId) {
   chrome.tabs.query({currentWindow: true, active: true },function (tabArray) { 
   	if (typeof tabArray[0] !== 'undefined') {
@@ -76,53 +73,16 @@ chrome.windows.onFocusChanged.addListener(function(windowId) {
 
 
 
-
 // listen for storage changes for when a new alarm is set
 chrome.storage.onChanged.addListener(function(changes, area) {
-    // timer type changed (if val not changed it will be undefined)
-    if (changes.timerType) {
-	    console.log(changes.timerType);
-    	var type = changes.timerType.newValue;
+  // timer type changed (if val not changed it will be undefined)
+  if (changes.timerType) {
 
-    	// block or unblock current tab
-		  chrome.tabs.query({ currentWindow: true, active: true },function (tabArray) { 
-  			if (typeof tabArray[0] !== 'undefined') {  // current tab is a chrome tab
-  				handleSite(tabArray[0].id);
-  				/*
-					// work timer set,
-					if (type === 'work') {
-						blockSite(tabArray[0].id);
-					}
-					// break timer
-					else {
-						unblockSite(tabArray[0].id);
-					}
-					*/			
-				}
-		  });    	
-    }
-  });
-
-/*
-// current alarm finishes
-chrome.alarms.onAlarm.addListener(function(alarm) {
-		// worktimer finishes, refresh page to remove block
+  	// block or unblock current tab
 	  chrome.tabs.query({ currentWindow: true, active: true },function (tabArray) { 
-	  	//handleSite(tabArray[0].id);			
-			//chrome.tabs.reload();
-
-			// work finishes, unblock site
-			if (alarm.name === 'workTimer') {
-				unblockSite();
+			if (typeof tabArray[0] !== 'undefined') {  // current tab is a chrome tab
+				handleSite(tabArray[0].id);
 			}
-			// break finishes, apply block
-			else {
-				blockSite(tabArray[0].id);
-			}			
-	  });
-
-	
-
+	  });    	
+  }
 });
-*/
-// need to store blocked website urls - use a set? that we save in chrome.storage

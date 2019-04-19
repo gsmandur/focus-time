@@ -1,3 +1,5 @@
+// handle the adding and deleting of elements in the blacklist
+
 // removes url from the blacklist array
 function whiteListSite(url) {
   // get the blacklist from storage
@@ -7,13 +9,11 @@ function whiteListSite(url) {
 
     // remove url from the BL
     let newBL = item.blackList; 
-    for (var i=newBL.length-1; i>=0; i--) {
+    for (var i = newBL.length-1; i >= 0; i--) {
       if (newBL[i] === url) {
         newBL.splice(i, 1);
       }
     }
-    console.log(newBL);
-
     // update storage
     chrome.storage.sync.set({
       blackList: newBL  
@@ -24,18 +24,13 @@ function whiteListSite(url) {
 
 // add url of the blacklisted website on the options display
 function addSiteToDisplay(url) {
-
   let list = document.getElementById('blackList');
   let li = document.createElement('li');
-  //li.innerHTML = url;
 
-  //var text = document.createTextNode(url);
   let text = document.createElement('div');
   text.innerHTML = url;
 
-
-
-  // 'X' for deleting site
+  // add 'X' for deleting site
   let del = document.createElement('div');
   del.className = "delete";
   del.innerHTML = "X";
@@ -54,10 +49,9 @@ function addSiteToDisplay(url) {
     // remove from storage
     whiteListSite(url);
   }
-
-
 }
 
+// add url to blacklist
 // callback is optional, used to add multiple sites at once in sync
 function blackListSite(url, callback) {
   if (url === '') return;
@@ -85,14 +79,11 @@ function blackListSite(url, callback) {
     
   });
 
-
 }
 
+let urlTextArea = document.getElementById("url"); 
 
-
-let urlTextArea = document.getElementById("url");
-
-// users presses enter on text box
+// users presses enter on text box to add url to blacklist
 urlTextArea.addEventListener("keyup", function(event) {
   if (event.key === "Enter") {
     url = urlTextArea.value;
@@ -104,29 +95,8 @@ urlTextArea.addEventListener("keyup", function(event) {
 });
 
 
-
-
-
-// Saves options to chrome.storage
-function save_options() {
-  var color = document.getElementById('color').value;
-  var likesColor = document.getElementById('like').checked;
-  chrome.storage.sync.set({
-    favoriteColor: color,
-    likesColor: likesColor
-  }, function() {
-    // Update status to let user know options were saved.
-    var status = document.getElementById('status');
-    status.textContent = 'Options saved.';
-    setTimeout(function() {
-      status.textContent = '';
-    }, 750);
-  });
-}
-
 // restore blacklisted sites stored in chrome.storage.
 function restore_options() {
-  // get elements from blacklist
   // get the blacklist from storage
   chrome.storage.sync.get({
     blackList: [] // set if not defined
@@ -152,9 +122,4 @@ function first_start() {
 
 document.addEventListener('DOMContentLoaded', restore_options);
 chrome.runtime.onInstalled.addListener(first_start);
-
-
-
-//chrome.storage.sync.clear();
-
 
