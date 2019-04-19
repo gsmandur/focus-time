@@ -1,7 +1,7 @@
 // Handle the blocking/unblocking of websites based on the blacklist 
 
 function unblockSite() {
-	chrome.tabs.executeScript(null, {file: 'unblock.js'});
+	chrome.tabs.executeScript(null, {file: 'background/unblock.js'});
 }
 
 
@@ -16,8 +16,8 @@ function blockSite(tabId) {
 
 	    	// if url is substring of blacklisted site block site
 	     	if (tab.url.includes(item.blackList[i])) {
-					chrome.tabs.executeScript(null, {file: 'block.js'});
-					chrome.tabs.insertCSS(null, {file: 'block.css'});  
+					chrome.tabs.executeScript(null, {file: 'background/block.js'});
+					chrome.tabs.insertCSS(null, {file: 'background/block.css'});  
 					break;   	
 				}
 	    }

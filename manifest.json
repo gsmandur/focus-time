@@ -5,22 +5,22 @@
 	"permissions": ["alarms", "storage", "tabs", "notifications", "<all_urls>"],
 
 	"background": {
-		"scripts": ["background.js", "websiteBlocker.js"],
+		"scripts": ["background/background.js", "background/websiteBlocker.js"],
 		"persistent": false
 	},
 	"browser_action": {
 		// need to add icons
 		"default_title": "Time to Stop Procrastinating",
-		"default_popup": "popup.html"
+		"default_popup": "popup/popup.html"
 	},
 	"icons": { 
-		"16":  "icon-v3.png",
-		"32":  "icon-v3.png",
-		"48":  "icon-v3.png",
-		"128": "icon-v3.png" 
+		"16":  "icon/icon-v3.png",
+		"32":  "icon/icon-v3.png",
+		"48":  "icon/icon-v3.png",
+		"128": "icon/icon-v3.png" 
 	},	
 	"options_ui": {
-    	"page": "options.html",
+    	"page": "options/options.html",
     	"open_in_tab": false
   	},
 	"manifest_version": 2
