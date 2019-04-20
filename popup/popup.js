@@ -11,18 +11,25 @@ function displayTimer(target) {
 	// start timer
  	timer = setInterval(function(){
  		var now = new Date();
-  	var remaining = Math.round((target - now) / 1000);
+  // 	var remaining = Math.round((target - now) / 1000);
 
-		//display the countdown  
-  	let min = ~~(remaining/60); // round down
-  	let sec = remaining % 60;
+		// //display the countdown  
+  // 	let min = ~~(remaining/60); // round down
+  // 	let sec = remaining % 60;
+    
+    var remaining = target - now;
+
+		var _second = 1000;
+		var _minute = _second * 60;
+
+    var minutes = Math.floor(remaining / _minute );
+    var seconds = Math.floor( (remaining % _minute) / _second );
 
   	// set the form to "00:00"
-  	let minStr = min < 10 ? "0" + min : min;
-  	let secStr = sec < 10 ? "0" + sec : sec;
+  	let minStr = minutes < 10 ? "0" + minutes : minutes;
+  	let secStr = seconds < 10 ? "0" + seconds : seconds;
 	  document.getElementById("countdown").innerHTML = minStr + " : " + secStr;
 	  
-	  remaining -= 1;
 	  if(remaining < 0){
 	  	clearInterval(timer);
 			document.getElementById("countdown").innerHTML = "";
