@@ -31,8 +31,8 @@ function blockSite(tabId) {
 function handleSite(tabId) {
 	// get tab url
 	chrome.tabs.get(tabId, function(tab) {
-	  var isChromeUrl = tab.url.indexOf("chrome://") === 0 ? true : false;
-	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") === 0 ? true : false;
+	  var isChromeUrl = tab.url.indexOf("chrome://") !== -1 ? true : false;
+	  var isChromeExtUrl = tab.url.indexOf("chrome-extension://") !== -1 ? true : false;
 
 	  // execute script does not work with chrome urls (and does not need to)
 		if (!isChromeUrl && !isChromeExtUrl) {	
