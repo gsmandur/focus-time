@@ -27,7 +27,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 			if (alarm.name === 'workTimer') {
 			  chrome.storage.sync.get(['breakTime'], function(item) {
 				  var now = new Date().getTime();
-					var target = new Date(now + item.breakTime * 1000).getTime();
+					var target = new Date(now + (item.breakTime * 1000 *60)).getTime();
 				  // create alarm
 					chrome.alarms.create("breakTimer", {'when': target});			
 					// update the new target and timer type
@@ -51,7 +51,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 			else if (alarm.name === 'breakTimer') {
 			  chrome.storage.sync.get(['workTime'], function(item) {
 				  var now = new Date().getTime();
-					var target = new Date(now + item.workTime * 1000).getTime();
+					var target = new Date(now + (item.workTime * 1000 *60)).getTime();
 				  // create alarm
 					chrome.alarms.create("workTimer", {'when': target});			
 					// update the new target and type

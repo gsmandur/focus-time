@@ -69,7 +69,7 @@ function setUpTimer() {
   var now = new Date().getTime();
   // target timestamp; we will compute the remaining time
   // relative to this date (in seconds)
-  var target = new Date(now + workTime * 1000).getTime();
+  var target = new Date(now + (workTime * 1000 * 60)).getTime();
 
   // remove start and add stop buttons
 	document.getElementById("startButton").remove();
