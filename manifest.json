@@ -1,7 +1,7 @@
 {
 	"name": "FocusTime - Balance work and fun",
 	"version": "1.0",
-	"description": "A Pomodoro timer to focus on your work and block out distracting websites!",
+	"description": "An Open Source Pomodoro timer to focus on your work and block out distracting websites!",
 	"permissions": ["alarms", "storage", "tabs", "notifications", "<all_urls>"],
 
 	"background": {
@@ -9,16 +9,15 @@
 		"persistent": false
 	},
 	"browser_action": {
-		// need to add icons
 		"default_title": "Time to Stop Procrastinating",
 		"default_popup": "popup/popup.html"
 	},
-	"icons": { 
+	"icons": {
 		"16":  "icon/icon-v3.png",
 		"32":  "icon/icon-v3.png",
 		"48":  "icon/icon-v3.png",
-		"128": "icon/icon-v3.png" 
-	},	
+		"128": "icon/icon-v3.png"
+	},
 	"options_ui": {
     	"page": "options/options.html",
     	"open_in_tab": false
