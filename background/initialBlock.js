@@ -1,7 +1,7 @@
 // add inital websites to blacklist when extension first installed
 
 
-// function almost same as one form options.js
+// function almost same as one from options.js
 // add url to blacklist
 // callback is optional, used to add multiple sites at once in sync
 function blackListSite(url, callback) {
