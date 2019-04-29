@@ -1,6 +1,6 @@
 {
 	"name": "FocusTime - Balance work and fun",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "An Open Source Pomodoro timer to focus on your work and block out distracting websites!",
 	"permissions": ["alarms", "storage", "tabs", "notifications", "<all_urls>"],
 
