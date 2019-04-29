@@ -107,19 +107,4 @@ function restore_options() {
   });
 }
 
-// add a few initial blacklisted sites to give the
-// user an idea of how it works
-function first_start() {
-  // add sites 1 by 1 in sync
-  blackListSite("facebook.com", function() {
-    blackListSite("youtube.com", function() {
-      blackListSite("instagram.com");
-    });
-  });
-}
-
-
-
 document.addEventListener('DOMContentLoaded', restore_options);
-chrome.runtime.onInstalled.addListener(first_start);
-

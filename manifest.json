@@ -5,7 +5,7 @@
 	"permissions": ["alarms", "storage", "tabs", "notifications", "<all_urls>"],
 
 	"background": {
-		"scripts": ["background/background.js", "background/websiteBlocker.js"],
+		"scripts": ["background/background.js", "background/websiteBlocker.js", "background/initialBlock.js"],
 		"persistent": false
 	},
 	"browser_action": {
