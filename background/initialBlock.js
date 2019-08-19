@@ -1,33 +1,35 @@
 // add inital websites to blacklist when extension first installed
 
-
 // function almost same as one from options.js
 // add url to blacklist
 // callback is optional, used to add multiple sites at once in sync
 function blackListSite(url, callback) {
-  if (url === '') return;
+  if (url === "") return;
 
   // get the blacklist from storage
-  chrome.storage.sync.get({
-    blackList: [] // set if not defined
-  }, function(item) {
+  chrome.storage.sync.get(
+    {
+      blackList: [] // set if not defined
+    },
+    function(item) {
+      let arr = item.blackList;
+      // add url to BL (only if not already there)
+      if (!arr.includes(url)) {
+        arr.push(url);
+        console.log(arr);
 
-    let arr = item.blackList; 
-    // add url to BL (only if not already there)    
-    if (!arr.includes(url)) { 
-      arr.push(url);
-      console.log(arr);
-
-      // update storage
-      chrome.storage.sync.set({
-        blackList: arr  
-      }, function() {
-        if(callback) callback();
-      });
+        // update storage
+        chrome.storage.sync.set(
+          {
+            blackList: arr
+          },
+          function() {
+            if (callback) callback();
+          }
+        );
+      }
     }
-    
-  });
-
+  );
 }
 
 // add a few initial blacklisted sites to give the
@@ -42,8 +44,8 @@ function first_start() {
 }
 
 // run on first time install
-chrome.runtime.onInstalled.addListener(function(details){
-    if(details.reason == "install"){
-        first_start();
-    }
+chrome.runtime.onInstalled.addListener(function(details) {
+  if (details.reason == "install") {
+    first_start();
+  }
 });
