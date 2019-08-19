@@ -3,7 +3,7 @@ body{
 }
 
 #block {
-  background-color: rgba(0, 0, 0, 0.6); /* black, slightly transparent */
+  background-color: rgba(0, 0, 0, 0.85); /* black, slightly transparent */
   position: fixed;
   left: 0;
   top: 0;
